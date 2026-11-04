@@ -294,3 +294,18 @@ I would like to continue improving the application with user-specific favorites,
 - [Rumble Fighter / RedFox Games](https://www.playredfox.com/rumble_fighter) — announcement source for the Beautiful Soup page.
 [Django] - Web framework.
 [Beautiful Soup] - HTML parsing library.
+
+Jump To:[Basic App Structure](#basic-app-structure)
+ [Create Model](#create-model)
+ [Display All Items](#display-all-items)
+ [Details View](#details-view)
+ [Edit and Delete Functions](#edit-and-delete-functions)
+ [Connect to API](#connect-to-api)
+ [Parse JSON](#parse-json)
+ [Beautiful Soup Setup](#beautiful-soup-setup)
+ [Parse HTML](#parse-html)
+ [Front-End Improvements](#front-end-improvements)
+ [Save Favorites](#save-favorites)
+ [Testing & Troubleshooting](#testing--troubleshooting)
+ [Conclusion](#conclusion)
+ [Key Learnings & Challenges](#key-learnings--challenges)
