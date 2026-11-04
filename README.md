@@ -10,7 +10,7 @@ Fighting Arena is a Django web application inspired by fighting games and charac
 
 I developed Fighting Arena as my individual application within the **AppBuilder9000** group project. I worked in my own Git branch and connected my app to the group's homepage and Django URL configuration. Throughout development, I combined back-end features—database models, forms, views, API requests, and HTML scraping—with front-end improvements designed to make the website feel like a fighting game.
 
-![Fighting Arena character selection](docs/images/character-selection.png)
+![Fighting Arena character selection](images/character-selection.png)
 
 ## Core Technologies
 
