@@ -14,13 +14,13 @@ I developed Fighting Arena as my individual application within the **AppBuilder9
 
 ## Core Technologies
 
-| Back end | Python, Django |
-| Front end | HTML5, CSS3, JavaScript, Django template language |
-| Database | SQLite with the Django ORM |
-| API integration | Requests, D&D 5e REST API |
-| Web scraping | Requests, Beautiful Soup (`bs4`) |
-| Version control | Git, Azure DevOps |
-| Development environment | PyCharm, virtual environment |
+- **Back end:** Python, Django
+- **Front end:** HTML5, CSS3, JavaScript, Django template language
+- **Database:** SQLite with the Django ORM 
+- **API integration:** Requests, D&D 5e REST API
+- **Web scraping:** Requests, Beautiful Soup (`bs4`)
+- **Version control:** Git, Azure DevOps
+- **Development environment:** PyCharm, virtual environment
 
 ## Key Features & Functionality
 
