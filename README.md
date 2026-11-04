@@ -56,7 +56,7 @@ I began by setting up the **CharacterSelection** Django project and its `charact
 
 One of the early challenges was integrating the standalone CharacterSelection application into the larger AppBuilder9000 group project. I needed to keep the app's routes working while also linking it from the shared homepage. I made the required settings and URL changes carefully so my app could be opened from the main project without replacing other group members' work.
 
-
+```python
 # URL examples from characters/urls.py
 path('', views.home, name='CharacterSelectHome'),
 path('class/<str:fighter_class>/', views.character_list, name='character_list'),
@@ -72,7 +72,7 @@ The next stage was creating a database-backed system for my fighters. I built a 
 When a visitor chooses a class and clicks **Create Fighter**, I wanted the form to preserve that selection instead of letting them accidentally create a fighter in a different class. I handled that in the creation view by assigning the selected class before saving the model.
 
 
-# From the character creation workflow
+```python
 form = CharacterForm(request.POST)
 
 if form.is_valid():
@@ -80,7 +80,7 @@ if form.is_valid():
     character.fighter_class = fighter_class
     character.save()
     return redirect('character_detail', pk=character.pk)
-
+```
 
 I used Django migrations to apply the models to the local SQLite database and tested the form by adding character records.
 
@@ -88,7 +88,7 @@ I used Django migrations to apply the models to the local SQLite database and te
 
 I created a page to list fighters belonging to the class a visitor selected. Instead of displaying the entire database without organization, the view filters `Character` objects by `fighter_class`. The results are passed to `character_list.html`, where a Django template loop creates a card for each matching fighter.
 
-
+```python
 def character_list(request, fighter_class):
     characters = Character.objects.filter(fighter_class=fighter_class)
 
@@ -96,7 +96,7 @@ def character_list(request, fighter_class):
         'characters': characters,
         'fighter_class': fighter_class,
     })
-
+```
 
 Each card includes a **View Fighter** link. When a class has no saved fighters, the page displays a helpful empty-state message and still offers a way to create one.
 
@@ -106,7 +106,7 @@ Each card includes a **View Fighter** link. When a class has no saved fighters, 
 
 After the list page was working, I built an individual details page for each fighter. Django uses the selected character's primary key to retrieve the correct database record. The details template displays the fighter's name, class, description, health, attack, defense, and speed, along with buttons for editing, deleting, and returning to the rest of the app.
 
-
+```python
 def character_detail(request, pk):
     character = get_object_or_404(Character, pk=pk)
 
@@ -123,11 +123,11 @@ I expanded the character features into a full create, read, update, and delete (
 
 For deletion, I added a separate confirmation template. The confirmation page is displayed on a GET request, while the actual deletion happens only after the user submits a POST request. This helps prevent accidental deletion from a simple link click.
 
-
+```python
 if request.method == 'POST':
     character.delete()
     return redirect('CharacterSelectHome')
-
+```
 
 ## Connect to API
 
@@ -141,7 +141,7 @@ To bring outside game information into Fighting Arena, I connected the project t
 
 I used Python's `requests` library to call the class endpoints and displayed the returned information on a dedicated `fighter_api.html` page. I also defined my own descriptions and preferred weapons to keep the external information connected to the Fighting Arena theme.
 
-
+```python
 url = f'https://www.dnd5eapi.co/api/2014/classes/{api_class}'
 response = requests.get(url, timeout=10)
 response.raise_for_status()
@@ -154,7 +154,7 @@ data = response.json()
 
 Once I could retrieve API responses, I focused on selecting the fields I actually wanted instead of passing the complete JSON document directly to the template. I extracted the D&D class name, hit die, and proficiency names and combined them with custom Fighting Arena information.
 
-
+```python
 fighter_info = {
     'fighter_class': fighter_class,
     'api_name': data.get('name', 'Unknown'),
@@ -168,7 +168,7 @@ fighter_info = {
 }
 
 api_characters.append(fighter_info)
-
+```
 
 In the template, I loop through the `api_characters` dictionaries to create four class cards. I added exception handling for failed requests so one unavailable API class does not necessarily prevent the remaining classes from appearing. Printing formatted JSON to the PyCharm terminal also helped me see exactly what the external service returned while testing.
 
@@ -178,14 +178,14 @@ For the web-scraping assignment, I chose the official [Rumble Fighter website](h
 
 I used `requests` to download the HTML and Beautiful Soup to create a navigable object:
 
-
+```python
 response = requests.get(
     'https://www.playredfox.com/rumble_fighter',
     timeout=10
 )
 response.raise_for_status()
 soup = BeautifulSoup(response.text, 'html.parser')
-
+```
 
 I added comments throughout the scraping function to explain which elements I wanted and why I filtered them.
 
@@ -193,16 +193,16 @@ I added comments throughout the scraping function to explain which elements I wa
 
 After retrieving the HTML, I searched for announcement links and filtered the results to relevant RedFox forum threads. I extracted each article's original URL, cleaned its text, and placed the information into dictionaries containing a title, short preview, category, and link.
 
-
+```python
 # Identify HTML links and extract readable text
 links = soup.find_all('a', href=True)
 
 for link in links:
     article_text = link.get_text(' ', strip=True)
     # Additional checks filter the relevant forum articles
+```
 
-
-
+```python
 # Data sent to the template for each matching announcement
 news_info = {
     'title': title,
@@ -211,7 +211,7 @@ news_info = {
     'url': article_url,
 }
 rumble_news.append(news_info)
-
+```
 
 One challenge was that several announcements used unusual decorative characters or had text without proper spacing. I improved the extraction using Unicode normalization, whitespace cleanup, shorter previews, and fallbacks for heavily stylized text. I also corrected an indentation issue where the page displayed an empty-results error despite finding announcements. The final page organizes up to eight announcements into compact cards and links back to the original articles.
 
@@ -238,7 +238,7 @@ I added a favorites feature that allows visitors to save interesting Rumble Figh
 
 On the News page, a **Save Favorite** form submits the selected article's values to a Django view. I used `get_or_create()` with the announcement URL to avoid adding duplicate records. Another view retrieves all saved announcements for the Favorites page, and a POST-based removal view lets visitors delete favorites.
 
-
+```python
 # Save an announcement only if its URL is not already present
 FavoriteAnnouncement.objects.get_or_create(
     url=article_url,
@@ -248,7 +248,7 @@ FavoriteAnnouncement.objects.get_or_create(
         'category': category,
     }
 )
-
+```
 
 The favorites data is stored in SQLite, so saved announcements remain available after refreshing the browser or restarting Django. In this version, favorites are shared across the site rather than attached to individual user accounts.** User-specific favorites could be a future improvement.
 
@@ -292,4 +292,5 @@ I would like to continue improving the application with user-specific favorites,
 
 - [D&D 5e REST API](https://www.dnd5eapi.co/) — external fighter-class information.
 - [Rumble Fighter / RedFox Games](https://www.playredfox.com/rumble_fighter) — announcement source for the Beautiful Soup page.
-
+[Django] - Web framework.
+[Beautiful Soup] - HTML parsing library.
