@@ -292,8 +292,8 @@ I would like to continue improving the application with user-specific favorites,
 
 - [D&D 5e REST API](https://www.dnd5eapi.co/) — external fighter-class information.
 - [Rumble Fighter / RedFox Games](https://www.playredfox.com/rumble_fighter) — announcement source for the Beautiful Soup page.
-[Django] - Web framework.
-[Beautiful Soup] - HTML parsing library.
+- [Django] - Web framework.
+- [Beautiful Soup] - HTML parsing library.
 
 Jump To:  [Basic App Structure](#basic-app-structure),
  [Create Model](#create-model),
