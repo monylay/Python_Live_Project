@@ -295,7 +295,7 @@ I would like to continue improving the application with user-specific favorites,
 [Django] - Web framework.
 [Beautiful Soup] - HTML parsing library.
 
-Jump To:[Basic App Structure](#basic-app-structure)
+Jump To:  [Basic App Structure](#basic-app-structure)
  [Create Model](#create-model)
  [Display All Items](#display-all-items)
  [Details View](#details-view)
