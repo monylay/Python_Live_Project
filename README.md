@@ -100,7 +100,7 @@ def character_list(request, fighter_class):
 
 Each card includes a **View Fighter** link. When a class has no saved fighters, the page displays a helpful empty-state message and still offers a way to create one.
 
-![Class-specific fighter list](docs/images/fighter-list.png)
+![Class-specific fighter list](images/fighter-list.png)
 
 ## Details View
 
@@ -148,7 +148,7 @@ response.raise_for_status()
 data = response.json()
 ```
 
-![Fighter Class Guide](docs/images/fighter-class-guide.png)
+![Fighter Class Guide](images/fighter-class-guide.png)
 
 ## Parse JSON
 
@@ -215,7 +215,7 @@ rumble_news.append(news_info)
 
 One challenge was that several announcements used unusual decorative characters or had text without proper spacing. I improved the extraction using Unicode normalization, whitespace cleanup, shorter previews, and fallbacks for heavily stylized text. I also corrected an indentation issue where the page displayed an empty-results error despite finding announcements. The final page organizes up to eight announcements into compact cards and links back to the original articles.
 
-![Rumble Fighter News](docs/images/rumble-fighter-news.png)
+![Rumble Fighter News](images/rumble-fighter-news.png)
 
 ## Front-End Improvements
 
